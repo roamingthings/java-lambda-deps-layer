@@ -1,0 +1,35 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="[Local] Function1Handler (Sample)" type="aws.lambda" factoryName="Local">
+    <option name="credentialProviderId" value="profile:my-account.my-profile" />
+    <option name="regionId" value="eu-central-1" />
+    <option name="debugHost" value="localhost" />
+    <option name="architecture" />
+    <option name="environmentVariables">
+      <map>
+        <entry key="BUCKET_NAME" value="workbench-java-deps-layer-test-bucket-12345678" />
+      </map>
+    </option>
+    <option name="handler" value="de.roamingthings.workbench.Function1Handler" />
+    <option name="image" value="false" />
+    <option name="logicalFunctionName" />
+    <option name="memorySize" value="1024" />
+    <option name="pathMappings">
+      <list />
+    </option>
+    <option name="platform" />
+    <option name="runtime" value="java11" />
+    <option name="templateFile" />
+    <option name="timeout" value="300" />
+    <option name="useTemplate" value="false" />
+    <option name="input" value="{&#10;  &quot;key1&quot;: &quot;value1&quot;,&#10;  &quot;key2&quot;: &quot;value2&quot;,&#10;  &quot;key3&quot;: &quot;value3&quot;&#10;}" />
+    <option name="inputIsFile" value="false" />
+    <sam>
+      <option name="additionalBuildArgs" value="" />
+      <option name="additionalLocalArgs" value="" />
+      <option name="buildInContainer" value="false" />
+      <option name="dockerNetwork" value="" />
+      <option name="skipImagePull" value="false" />
+    </sam>
+    <method v="2" />
+  </configuration>
+</component>
