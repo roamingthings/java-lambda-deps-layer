@@ -19,6 +19,11 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import static software.amazon.awscdk.RemovalPolicy.DESTROY;
+import static software.amazon.awscdk.services.lambda.Architecture.ARM_64;
+import static software.amazon.awscdk.services.lambda.Architecture.X86_64;
+import static software.amazon.awscdk.services.lambda.Tracing.ACTIVE;
+
 public class WorkbenchJavaDepsLayerStack extends Stack {
 
     public WorkbenchJavaDepsLayerStack(final Construct scope, final String id) {
@@ -29,40 +34,83 @@ public class WorkbenchJavaDepsLayerStack extends Stack {
         super(scope, id, props);
 
         var bucket = Bucket.Builder.create(this, "Bucket")
-                .removalPolicy(RemovalPolicy.DESTROY)
+                .removalPolicy(DESTROY)
                 .bucketName("workbench-java-deps-layer-test-bucket-" + getAccount())
                 .build();
 
         var depsLayer = LayerVersion.Builder.create(this, "DepsLayer")
-                .removalPolicy(RemovalPolicy.DESTROY)
+                .removalPolicy(DESTROY)
                 .code(Code.fromAsset("../deps-layer/build/distributions/deps-layer-dist.zip"))
-                .compatibleArchitectures(List.of(Architecture.X86_64, Architecture.ARM_64))
+                .compatibleArchitectures(List.of(X86_64, ARM_64))
                 .build();
 
         var environment = Map.of("BUCKET_NAME", bucket.getBucketName());
 
         var function1 = Function.Builder.create(this, "Function1")
                 .runtime(Runtime.JAVA_11)
-                .memorySize(512)
-                .architecture(Architecture.ARM_64)
+                .memorySize(1024)
+                .architecture(ARM_64)
                 .timeout(Duration.seconds(30))
                 .handler("de.roamingthings.workbench.Function1Handler::handleRequest")
                 .code(Code.fromAsset("../function1/build/distributions/lambda-dist.zip"))
                 .layers(List.of(depsLayer))
-                .tracing(Tracing.ACTIVE)
+                .tracing(ACTIVE)
                 .environment(environment)
                 .build();
         bucket.grantWrite(function1);
 
         Function.Builder.create(this, "Function2")
                 .runtime(Runtime.JAVA_11)
-                .memorySize(512)
-                .architecture(Architecture.ARM_64)
+                .memorySize(1024)
+                .architecture(ARM_64)
                 .timeout(Duration.seconds(30))
                 .handler("de.roamingthings.workbench.Function2Handler::handleRequest")
                 .code(Code.fromAsset("../function2/build/distributions/lambda-dist.zip"))
                 .layers(List.of(depsLayer))
-                .tracing(Tracing.ACTIVE)
+                .tracing(ACTIVE)
+                .environment(environment)
+                .build();
+
+        var micronautDepsLayer = LayerVersion.Builder.create(this, "MicronautDepsLayer")
+                .removalPolicy(DESTROY)
+                .code(Code.fromAsset("../micronaut-deps-layer/build/distributions/deps-layer-dist.zip"))
+                .compatibleArchitectures(List.of(X86_64, ARM_64))
+                .build();
+
+        var micronautFunction1 = Function.Builder.create(this, "MicronautFunction1")
+                .runtime(Runtime.JAVA_11)
+                .memorySize(1024)
+                .architecture(ARM_64)
+                .timeout(Duration.seconds(30))
+                .handler("de.roamingthings.workbench.MicronautFunction1Handler")
+                .code(Code.fromAsset("../micronaut-functions/build/distributions/lambda-dist.zip"))
+                .layers(List.of(micronautDepsLayer))
+                .tracing(ACTIVE)
+                .environment(environment)
+                .build();
+        bucket.grantWrite(micronautFunction1);
+
+        Function.Builder.create(this, "MicronautFunction2")
+                .runtime(Runtime.JAVA_11)
+                .memorySize(1024)
+                .architecture(ARM_64)
+                .timeout(Duration.seconds(30))
+                .handler("de.roamingthings.workbench.MicronautFunction2Handler")
+                .code(Code.fromAsset("../micronaut-functions/build/distributions/lambda-dist.zip"))
+                .layers(List.of(micronautDepsLayer))
+                .tracing(ACTIVE)
+                .environment(environment)
+                .build();
+
+        Function.Builder.create(this, "MicronautFunction3")
+                .runtime(Runtime.JAVA_11)
+                .memorySize(1024)
+                .architecture(ARM_64)
+                .timeout(Duration.seconds(30))
+                .handler("de.roamingthings.workbench.MicronautFunction3Handler")
+                .code(Code.fromAsset("../micronaut-functions/build/distributions/lambda-dist.zip"))
+                .layers(List.of(micronautDepsLayer))
+                .tracing(ACTIVE)
                 .environment(environment)
                 .build();
     }

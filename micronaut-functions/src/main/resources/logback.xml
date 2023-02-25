@@ -1,0 +1,15 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>{ "timestamp": "%d{HH:mm:ss.SSS}",  "level": "%level", "logger": "%logger", "requestId": "%X{AWSRequestId}", "functionName" :"%X{AWSFunctionName}", "functionVersion" :"%X{AWSFunctionVersion}", "traceId": "%X{AWS-XRAY-TRACE-ID}", "message": "%msg"}\n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

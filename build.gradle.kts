@@ -1,5 +1,6 @@
 plugins {
     id("io.freefair.aspectj.post-compile-weaving") version "6.6.1" apply (false)
+    id("io.micronaut.application") version "3.7.2" apply (false)
 }
 
 subprojects {

@@ -7,5 +7,10 @@ include(
     "shared-model",
     "function1",
     "function2",
+
+    "micronaut-deps",
+    "micronaut-deps-layer",
+    "micronaut-functions",
+
     "infrastructure",
 )

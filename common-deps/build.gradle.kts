@@ -11,10 +11,10 @@ dependencies {
     api("software.amazon.awssdk:url-connection-client")
 
     api("org.slf4j:slf4j-simple:2.0.6")
-    api("software.amazon.lambda:powertools-logging:1.13.0")
-    api("software.amazon.lambda:powertools-metrics:1.13.0")
-    api("software.amazon.lambda:powertools-tracing:1.13.0")
-    api("software.amazon.lambda:powertools-idempotency:1.13.0")
+    api("software.amazon.lambda:powertools-logging:1.14.0")
+    api("software.amazon.lambda:powertools-metrics:1.14.0")
+    api("software.amazon.lambda:powertools-tracing:1.14.0")
+    api("software.amazon.lambda:powertools-idempotency:1.14.0")
 }
 
 configurations.all {

@@ -39,9 +39,9 @@ tasks.clean {
 }
 
 tasks.withType<JavaCompile> {
-    dependsOn(":function1:compileJava", ":function2:compileJava")
+    dependsOn(":function1:compileJava", ":function2:compileJava", ":micronaut-functions:compileJava")
 }
 
 tasks.withType<JavaExec> {
-    dependsOn(":function1:build", ":function2:build", ":deps-layer:layerDistZip")
+    dependsOn(":function1:build", ":function2:build", ":deps-layer:layerDistZip", ":micronaut-deps-layer:layerDistZip", ":micronaut-functions:build")
 }
