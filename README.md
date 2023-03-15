@@ -1,4 +1,4 @@
-# AWS Lambda Depenency Layer for Java Functions
+# AWS Lambda Dependency Layer for Java Functions
 
 This project demonstrates how to deploy an application to AWS with a Lambda written in Java using a layer for all
 dependencies.
@@ -24,6 +24,7 @@ It contains the following modules:
 * `function1`... - The functions of the application.
 * `infrastructure` - CDK code to build the topology of the application and deploy it to AWS.
 * `.run` - Sample run configuration for IntelliJ IDE
+* `buildSrc` - Contains a Gradle plugin that simplifies the generation of a ZIP that can be used to distribute a lambda function
 
 The most important modules are the `common-deps` and `deps-layer` module. The `common-deps` module the sum of all
 dependencies that are used by all functions. From the point of view of one function that will mean that the
@@ -48,3 +49,26 @@ plugins {
 ```
 
 See [function1/build.gradle.kts](function1/build.gradle.kts) for an example.
+
+## Build and Deploy the Example
+
+### Prerequisites
+
+In order to build and deploy the application you will need the following to be installed on your system:
+* Java 11
+* CDK
+* SDKMAN! (optional)
+
+### Deploy the Application
+
+To build and deploy the example application
+
+1. update the CDK [`WorkbenchJavaDepsLayerApp`](infrastructure/src/main/java/de/roamingthings/workbench/WorkbenchJavaDepsLayerApp.java) class with your preferred account settings.
+2. run either `./gradlew synth` to synthesize or `./gradlew deploy` to deploy the application
+
+Alternatively you can  run `cdk synth` or `cdk deploy` in the `infrastructure` folder:
+
+```shell
+cd infrastructure
+cdk deploy
+```
