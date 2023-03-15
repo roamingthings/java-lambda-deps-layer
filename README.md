@@ -1,4 +1,4 @@
-# Workbench: AWS Java Lambda with Dependencies in a Layer
+# AWS Lambda Depenency Layer for Java Functions
 
 This project demonstrates how to deploy an application to AWS with a Lambda written in Java using a layer for all
 dependencies.
