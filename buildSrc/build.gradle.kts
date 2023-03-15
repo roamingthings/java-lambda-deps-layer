@@ -21,12 +21,3 @@ gradlePlugin {
         }
     }
 }
-
-//gradlePlugin {
-//    plugins {
-//        create<LambdaDistributionPlugin> {
-//            id = "lambda-distribution"
-//            implementationClass = "de.roamingthings.gradle.plugin.lambda.LambdaDistributionPlugin"
-//        }
-//    }
-//}
