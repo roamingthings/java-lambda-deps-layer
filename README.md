@@ -23,6 +23,7 @@ It contains the following modules:
   deployed.
 * `function1`... - The functions of the application.
 * `infrastructure` - CDK code to build the topology of the application and deploy it to AWS.
+* `.run` - Sample run configuration for IntelliJ IDE
 
 The most important modules are the `common-deps` and `deps-layer` module. The `common-deps` module the sum of all
 dependencies that are used by all functions. From the point of view of one function that will mean that the
