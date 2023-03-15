@@ -1,4 +1,4 @@
-rootProject.name = "workbench-java-deps-layer"
+rootProject.name = "java-lambda-deps-layer"
 
 include(
     "common-deps",
@@ -7,5 +7,5 @@ include(
     "shared-model",
     "function1",
     "function2",
-    "infrastructure",
+    "infrastructure"
 )
