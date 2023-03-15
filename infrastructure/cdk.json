@@ -1,5 +1,5 @@
 {
-  "app": "../gradlew build run -x test",
+  "app": "../gradlew build run",
   "watch": {
     "include": [
       "**"
