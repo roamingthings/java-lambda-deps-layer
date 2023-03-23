@@ -26,11 +26,14 @@ public class LambdaDistributionPlugin implements Plugin<Project> {
         functionDistZipTask.configure(zip -> {
             zip.setDescription("Build the zip that can be distributed as Lambda code artifact");
             zip.setGroup("Distribution");
-            zip.from(project.getTasks().getByName("compileJava"));
+            zip.from(project.getTasks().getByName("compileJava"), copySpec -> {
+                copySpec.exclude("**/previous-compilation-data.bin", "previous-compilation-data.bin");
+            });
             zip.from(project.getTasks().getByName("processResources"));
             zip.from(localImplementationConfiguration.getIncoming().getArtifacts().getArtifactFiles(), copySpec -> {
                 copySpec.from(localImplementationConfiguration.getIncoming().getArtifacts().getArtifactFiles());
                 copySpec.into("lib");
+                copySpec.exclude("**/previous-compilation-data.bin", "previous-compilation-data.bin");
             });
             zip.setProperty("archiveFileName", DISTRIBUTION_ARCHIVE_FILENAME);
             zip.setProperty("archiveVersion", "");
